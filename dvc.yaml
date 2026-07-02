@@ -1,0 +1,101 @@
+# =============================================================
+# dvc.yaml — Définition du pipeline DVC
+# =============================================================
+# Ce fichier décrit les 4 étapes du pipeline ML :
+#   1. preprocess  — nettoyage et prétraitement des tweets
+#   2. vectorize   — vectorisation
+#   3. train       — entraînement des modèles de classification
+#   4. evaluate    — évaluation et génération des figures
+
+#
+# Utilisation :
+#   dvc repro          → exécuter / mettre à jour le pipeline
+#   dvc dag            → visualiser le graphe de dépendances
+#   dvc metrics show   → afficher les métriques
+
+stages:
+
+  # ── Étape 1 : Prétraitement ─────────────────────────────────
+  preprocess:
+    cmd: python src/preprocess.py
+          --input data/tweets.csv
+          --output data/tweets_preprocessed.csv
+          --params params.yaml
+          --metrics metrics/preprocess_metrics.json
+    deps:
+      - src/preprocess.py
+      - data/tweets.csv
+    params:
+      - params.yaml:
+          - preprocess
+    outs:
+      - data/tweets_preprocessed.csv
+    metrics:
+      - metrics/preprocess_metrics.json:
+          cache: false
+
+  # ── Étape 2 : Vectorisation ─────────────────────────────────
+  vectorize:
+    cmd: python src/vectorize.py
+          --input data/tweets_preprocessed.csv
+          --output-dir data/
+          --params params.yaml
+          --metrics metrics/vectorize_metrics.json
+    deps:
+      - src/vectorize.py
+      - data/tweets_preprocessed.csv
+    params:
+      - params.yaml:
+          - vectorizer
+          - bow
+          - word2vec
+    outs:
+      - data/vectorized_data.pkl
+      - data/word2vec.model
+    metrics:
+      - metrics/vectorize_metrics.json:
+          cache: false
+
+  # ── Étape 3 : Entraînement ──────────────────────────────────
+  train:
+    cmd: python src/train.py
+          --input data/tweets_preprocessed.csv
+          --model-dir models/
+          --params params.yaml
+          --metrics metrics/train_metrics.json
+    deps:
+      - src/train.py
+      - data/tweets_preprocessed.csv
+    params:
+      - params.yaml:
+          - vectorizer
+          - train
+    outs:
+      - models/best_model.pkl
+      - models/all_models.pkl
+      - models/test_data.pkl
+    metrics:
+      - metrics/train_metrics.json:
+          cache: false
+
+  # ── Étape 4 : Évaluation ────────────────────────────────────
+  evaluate:
+    cmd: python src/evaluate.py
+          --model-dir models/
+          --output-dir reports/figures/
+          --metrics metrics/metrics.json
+          --train-metrics metrics/train_metrics.json
+    deps:
+      - src/evaluate.py
+      - models/best_model.pkl
+      - models/test_data.pkl
+    outs:
+      - reports/figures/confusion_matrix.png:
+          cache: false
+      - reports/figures/roc_curve.png:
+          cache: false
+      - reports/figures/models_comparison.png:
+          cache: false
+    metrics:
+      - metrics/metrics.json:
+          cache: false

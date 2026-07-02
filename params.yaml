@@ -1,0 +1,52 @@
+# =============================================================
+# params.yaml — Paramètres centraux du pipeline DVC
+# =============================================================
+# Toute modification ici déclenche automatiquement la
+# ré-exécution des étapes concernées via `dvc repro`.
+# =============================================================
+
+# ── Prétraitement ─────────────────────────────────────────────
+preprocess:
+  language: english
+  lemmatize: true
+  preserve_negations: true
+  min_token_length: 2
+
+# ── Vectorisation TF-IDF ──────────────────────────────────────
+vectorizer:
+  max_features: 10000
+  ngram_range: [1, 2]       # unigrammes + bigrammes
+  sublinear_tf: true         # log(TF) pour réduire l'impact des mots très fréquents
+  min_df: 2                  # ignorer les mots apparaissant dans < 2 documents
+
+# ── Entraînement ─────────────────────────────────────────────
+train:
+  test_size: 0.2
+  random_state: 42
+  cv_folds: 5
+  class_weight: balanced     # gestion du déséquilibre des classes
+
+  # Hyperparamètres par modèle
+  lr_C: 1.0                  # Logistic Regression — régularisation
+  nb_alpha: 0.1              # Naive Bayes — lissage de Laplace
+  svc_C: 1.0                 # LinearSVC — régularisation
+  rf_n_estimators: 100       # Random Forest — nombre d'arbres
+
+# ── Évaluation ───────────────────────────────────────────────
+evaluate:
+  threshold: 0.5             # seuil de classification
+  figures_dpi: 150
+
+# ── Bag of Words ──────────────────────────────────────────────
+bow:
+  max_features: 5000
+  ngram_range: [1, 1]
+  min_df: 2
+
+# ── Word2Vec ──────────────────────────────────────────────────
+word2vec:
+  vector_size: 100
+  window: 5
+  min_count: 2
+  epochs: 30
+  sg: 1          # 1=Skip-gram, 0=CBOW
