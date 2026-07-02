@@ -4,13 +4,13 @@
 
 ---
 
-## 📋 Description
+## Description
 
 Ce projet implémente un pipeline complet de Machine Learning pour la **classification automatique de tweets suspects**, en intégrant les bonnes pratiques MLOps via **Git** et **DVC** (Data Version Control).
 
 ---
 
-## 🗂️ Structure du projet
+## Structure du projet
 
 ```
 tweet_suspect/
@@ -51,7 +51,7 @@ tweet_suspect/
 
 ---
 
-## ⚙️ Installation
+## Installation
 
 ```bash
 # 1. Cloner le dépôt
@@ -72,7 +72,7 @@ dvc pull
 
 ---
 
-## 🚀 Reproduire les résultats
+## Reproduire les résultats
 
 ```bash
 # Exécuter le pipeline complet (ou uniquement les étapes modifiées)
@@ -90,7 +90,7 @@ dvc metrics diff HEAD~1
 
 ---
 
-## 📊 Pipeline DVC
+## Pipeline DVC
 
 ```
 data/tweets.csv
@@ -115,7 +115,7 @@ data/tweets.csv
 
 ---
 
-## 🔧 Paramètres (`params.yaml`)
+## Paramètres (`params.yaml`)
 
 | Section | Paramètre | Valeur par défaut | Description |
 |---------|-----------|-------------------|-------------|
@@ -131,7 +131,7 @@ Modifier `params.yaml` puis relancer `dvc repro` pour ré-entraîner automatique
 
 ---
 
-## 📈 Modèles comparés
+## Modèles comparés
 
 | Modèle | Représentation |
 |--------|---------------|
@@ -142,7 +142,7 @@ Modifier `params.yaml` puis relancer `dvc repro` pour ré-entraîner automatique
 
 ---
 
-## 📦 Versionner une nouvelle expérience
+## Versionner une nouvelle expérience
 
 ```bash
 # Modifier les paramètres
@@ -166,21 +166,15 @@ dvc push
 
 ---
 
-## 🌐 Déploiement
+## Déploiement
 
-### Option A — Interface Streamlit
+### Interface Streamlit
 ```bash
 streamlit run app/streamlit_app.py
 ```
 
-### Option B — API FastAPI
-```bash
-uvicorn app.api:app --reload --port 8000
-# Documentation : http://localhost:8000/docs
-```
-
 ---
 
-## 👤 Auteur
+## Auteur
 
-Projet réalisé dans le cadre du cours **Construction de Modèles et leur Déploiement**.
+**COULIBALY Cheick Ahmed**.
