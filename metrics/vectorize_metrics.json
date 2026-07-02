@@ -1,0 +1,24 @@
+{
+  "bow": {
+    "shape": [
+      198,
+      192
+    ],
+    "vocab": 192
+  },
+  "tfidf": {
+    "shape": [
+      198,
+      214
+    ],
+    "vocab": 214
+  },
+  "word2vec": {
+    "shape": [
+      198,
+      100
+    ],
+    "vocab": 192,
+    "vector_size": 100
+  }
+}

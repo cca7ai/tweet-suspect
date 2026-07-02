@@ -1,0 +1,15 @@
+{
+  "n_raw_tweets": 60000,
+  "n_processed_tweets": 59366,
+  "n_removed_tweets": 634,
+  "vocab_raw_size": 98132,
+  "vocab_clean_size": 30649,
+  "vocab_reduction_pct": 68.77,
+  "avg_words_before": 13.18,
+  "avg_words_after": 6.69,
+  "class_balance": {
+    "normal": 6130,
+    "suspect": 53236
+  },
+  "processing_time_s": 4.507
+}

@@ -1,0 +1,14 @@
+{
+  "accuracy": 0.9755,
+  "precision": 0.9839,
+  "recall": 0.9888,
+  "f1_score": 0.9864,
+  "auc_roc": 0.9372,
+  "model": "RandomForest",
+  "confusion_matrix": {
+    "tn": 1054,
+    "fp": 172,
+    "fn": 119,
+    "tp": 10529
+  }
+}
